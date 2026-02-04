@@ -1,0 +1,21 @@
+workflows:
+  ios-workflow:
+    name: iOS Build
+    environment:
+      vars:
+        FLUTTER_BUILD_MODE: release
+      node: 20
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm ci
+      - name: Build web app
+        script: |
+          npm run build
+      - name: Copy to Capacitor
+        script: |
+          npx cap copy
+    xcode:
+      project_path: ios/App/App.xcworkspace
+      scheme: App
+      export_method: app-store
