@@ -6,16 +6,21 @@ workflows:
       node: 20
       cocoapods: default
       xcode: latest
+
     scripts:
       - name: Install dependencies
         script: |
           npm ci
-          npm install @capacitor/ios
+          npm install @capacitor/core @capacitor/cli @capacitor/ios
+
       - name: Build web app
         script: |
           npm run build
+
       - name: Copy web assets to iOS
         script: |
-          npx cap copy
+          npx cap copy ios
+
     artifacts:
       - ios/App/build/Build/Products/Release-iphoneos/*.ipa
+      - /Users/builder/.npm/_logs/*.log
